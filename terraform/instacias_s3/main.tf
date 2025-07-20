@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "as-east-1"
+  region = "sa-east-1"
 }
 variable "bucket_name" {
   type = string
