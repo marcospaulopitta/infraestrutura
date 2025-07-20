@@ -46,7 +46,6 @@ jobs:
           terraform apply -auto-approve -var "bucket_name=${{ env.BUCKET_NAME }}"
 
       - name: Instalar GitHub CLI
-        uses: cli/cli-action@v2
         run: |
           sudo apt-get update
           sudo apt-get install gh -y
