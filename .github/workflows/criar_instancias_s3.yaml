@@ -27,8 +27,8 @@ jobs:
       - name: EXTRAINDO NOME DO BUCKET DO TITULO DA ISSUE
         id: extrair_nome
         run: |
-          echo PREFIXO=$(echo "${{ github.event.issue.title }}")
-          SUFIXO=$(shuf -i 0000-9999 -n 1)
+          PREFIXO=$(echo "${{ github.event.issue.title }}")
+          SUFIXO=$(shuf -i 1000-9999 -n 1)
           BUCKET_NAME="${PREFIXO}-${SUFIXO}"
           echo "BUCKET_NAME=${BUCKET_NAME}" >> $GITHUB_ENV
           echo "Nome do bucket: $BUCKET_NAME"
