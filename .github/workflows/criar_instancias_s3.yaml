@@ -16,7 +16,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_CHAVE_ACESSO }}
           aws-secret-access-key: ${{ secrets.AWS_CHAVE_ACESSO_SECRETA }}
-          aws-region: as-east-1
+          aws-region: sa-east-1
 
       - name: Extrair informações do issue
         id: issue_info
