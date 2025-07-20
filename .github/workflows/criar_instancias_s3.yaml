@@ -6,7 +6,7 @@ on:
 
 jobs:
   criar_instancias_s3:
-    if: github.event.label.name == 'aprovado'
+    if: github.event.label.name == 'Aprovado'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositorio
