@@ -27,9 +27,11 @@ jobs:
       - name: EXTRAINDO NOME DO BUCKET DO TITULO DA ISSUE
         id: extrair_nome
         run: |
-          echo BUCKET_NAME=$(echo "${{ github.event.issue.title }}") >> $GITHUB_ENV
-          echo "Nome do bucket extraído: ${{ env.BUCKET_NAME }}"
-          echo "Nome do bucket extraído: ${{ github.event.issue.title }}"
+          echo PREFIXO=$(echo "${{ github.event.issue.title }}")
+          SUFIXO=$(shuf -i 0000-9999 -n 1)
+          BUCKET_NAME="${PREFIXO}-${SUFIXO}"
+          echo "BUCKET_NAME=${BUCKET_NAME}" >> $GITHUB_ENV
+          echo "Nome do bucket: $BUCKET_NAME"
 
       - name: CRIANDO INSTANCIAS S3
         run: |
