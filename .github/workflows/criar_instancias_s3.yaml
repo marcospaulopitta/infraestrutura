@@ -10,10 +10,16 @@ jobs:
     steps:
       - name: Checkout do repositorio
         uses: actions/checkout@v2 
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.12.2
       
       - name: Configuarar AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
         with:
+          aws_default-region: sa-east-1
           aws-access-key-id: ${{ secrets.AWS_CHAVE_ACESSO }}
           aws-secret-access-key: ${{ secrets.AWS_CHAVE_ACESSO_SECRETA }}
           aws-region: sa-east-1
@@ -27,8 +33,7 @@ jobs:
 
       - name: Executar Terraform para criar instâncias S3
         run: |
-          cd terraform
-          cd instancias_s3
+          cd terraform/instancias_s3
           terraform init
           terraform apply -auto-approve -var "bucket_name=${{ env.BUCKET_NAME }}" 
 
