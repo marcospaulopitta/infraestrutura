@@ -1,4 +1,4 @@
-name: Criar Instâncias S3
+name: CRIAÇÃO DE INSTANCIAS S3
 
 on:
   issues:
@@ -9,48 +9,40 @@ jobs:
     if: github.event.label.name == 'Aprovado'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositorio
+      - name: VERIFICANDO REPOSITORIO
         uses: actions/checkout@v2
 
-      - name: Instalar Terraform
+      - name: INSTALANDO O TERRAFORM
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.12.2
 
-      - name: Configuarar AWS CLI
+      - name: CONFIGURAÇÃO DO AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: sa-east-1
           aws-access-key-id: ${{ secrets.AWS_CHAVE_ACESSO }}
           aws-secret-access-key: ${{ secrets.AWS_CHAVE_ACESSO_SECRETA }}
 
-      - name: Gerar nome único do recurso
-        id: gerar_nome
+      - name: EXTRAINDO NOME DO BUCKET DO TITULO DA ISSUE
+        id: extrair_nome
         run: |
-          BASE_NAME=$(echo "${{ github.event.issue.title }}" | grep -oE '[a-zA-Z0-9]+' | head -n 1 | tr '[:upper:]' '[:lower:]')
-          RANDOM_SUFFIX=$(shuf -i 100-999 -n 1)
-          RESOURCE_NAME="${BASE_NAME}-${RANDOM_SUFFIX}"
-          echo "Nome gerado: $RESOURCE_NAME"
-          echo "RESOURCE_NAME=$RESOURCE_NAME" >> $GITHUB_ENV
+        export BUCKET_NAME=$(echo "${{ github.event.issue.title }}")
+        echo "bucket_name: ${BUCKET_NAME}"
+        echo "BUCKET_NAME=${BUCKET_NAME}" >> $GITHUB_ENV
 
-      - name: Executar Terraform para criar bucket S3
-        run: |
-          cd terraform/instancias_s3
-          terraform init
-          terraform apply -auto-approve -var "bucket_name=${{ env.RESOURCE_NAME }}"
-
-      - name: Executar Terraform para criar instâncias S3
+      - name: CRIANDO INSTANCIAS S3
         run: |
           cd terraform/instancias_s3
           terraform init
           terraform apply -auto-approve -var "bucket_name=${{ env.BUCKET_NAME }}"
 
-      - name: Instalar GitHub CLI
+      - name: INSTALANDO O GITHUB CLI
         run: |
           sudo apt-get update
           sudo apt-get install gh -y
 
-      - name: Adicionar comentário
+      - name: ADICIONANDO COMENTÁRIO NA ISSUE
         run: gh issue comment "$NUMBER" --repo "$REPO" --body "$BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

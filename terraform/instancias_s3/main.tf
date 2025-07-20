@@ -5,7 +5,7 @@ variable "bucket_name" {
   type = string
 }
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "bucket-s3-${var.bucket_name}"
+  bucket = "${var.bucket_name}"
 
   tags = {
     Name        = "Bucket_S3"
