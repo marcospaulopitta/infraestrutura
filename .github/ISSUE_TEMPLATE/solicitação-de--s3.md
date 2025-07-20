@@ -1,8 +1,8 @@
 ---
-name: Solicitação S3
+name: Solicitação de  S3
 about: Solicito Criação de S3 na  Infraestrutura AWS
-title: olicitar Infraestrutura S3
-labels: Infra
+title: s3-solicitado
+labels: Solicitado
 assignees: ''
 
 ---

@@ -1,8 +1,8 @@
 ---
-name: Solicitação VPC
+name: VPC
 about: Solicito Criação de VPC na Infraestrutura AWS
-title: Solicitação de criação de recurso VPC na nuvem
-labels: Infra
+title: ec2-solicitado
+labels: Solicitado
 assignees: ''
 
 ---
