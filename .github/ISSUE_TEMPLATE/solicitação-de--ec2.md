@@ -1,8 +1,8 @@
 ---
-name: Solicitação EC2
+name: Solicitação de  EC2
 about: Solicito Criação de EC2 na Infraestrutura AWS
-title: Solicitação de criação de recurso EC2 na nuvem
-labels: Infra
+title: ec2-solicitado
+labels: Solicitado
 assignees: ''
 
 ---
